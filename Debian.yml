@@ -1,0 +1,32 @@
+- name: Install Debian Apache
+  apt:
+    name: apache2
+    state: present
+
+- name: Start Debian Apache
+  systemd:
+    state: started
+    name: apache2
+    enabled: yes
+
+- name: Install wget
+  apt:
+    name: wget
+    state: present
+
+- name: Install Unzip
+  apt:
+    name: unzip
+    state: present   
+
+- name: Unarchive a file that needs to be downloaded 
+  unarchive:
+    src: https://www.free-css.com/assets/files/free-css-templates/download/page276/petlover.zip
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy files to /var/www/html
+  copy:
+    src: /tmp/petlover/
+    dest: /var/www/html/
+    remote_src: yes
